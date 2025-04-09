@@ -1,13 +1,21 @@
-from fastapi.middleware.cors import CORSMiddleware
-
-import ccxt
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import ccxt
 
 app = FastAPI()
-allow_origins=["https://crypto-arbitrage-frontend.vercel.app"]
 
-app.add_middleware(CORSMiddleware, allow_origins=["*"])
+# Разрешить только нужный frontend-домен
+origins = [
+    "https://crypto-arbitrage-frontend.vercel.app"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # используй переменную
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 kucoin = ccxt.kucoin()
 binance_futures = ccxt.binance({'options': {'defaultType': 'future'}})
