@@ -1,8 +1,12 @@
+from fastapi.middleware.cors import CORSMiddleware
+
 import ccxt
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+allow_origins=["https://crypto-arbitrage-frontend.vercel.app"]
+
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
 kucoin = ccxt.kucoin()
